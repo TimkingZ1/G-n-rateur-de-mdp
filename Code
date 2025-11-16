@@ -1,0 +1,84 @@
+import random
+
+print("{0:-^72}".format(""))
+print("|{0:^70}|".format("Générateur de mots de passes"))
+print("{0:-^72}".format(""))
+
+parameter = []
+# Longueur
+longueur = random.randint(5, 15)
+# Chiffres?
+chiffres = ["1","2","3","4","5","6","7","8","9","0"]
+
+# Lettres?
+lettres = ["A","a","B","b","C","c","D","d","E","e","F","f","G","g","H","h",
+"I","i","J","j","K","k","L","l","M","m","N","n","O","o","P","p",
+"Q","q","R","r","S","s","T","t","U","u","V","v","W","w","X","x",
+"Y","y","Z","z"]
+
+# Charactère speciéaux?
+c_speciaux = ["!","#","$","%","&","'","(",")","*","+",",","‑",".","/",";",":","<","=",">","?","@",
+"[","\\","]","^","_","`","{","|","}","~",
+"©","®","™","°","±","µ","€","£","¥","¢","§","¶","•","–","—","•","…","¨","¿","¡"]
+
+# Paramètre du mdp
+mdp = []
+mdp1 = ""
+
+
+
+def choixmdp(mdp1):
+    for i in range(12, 16):
+        mdp.append(random.choice(lettres)) or mdp.append(random.choice(chiffres)) or mdp.append(random.choice(c_speciaux))
+        mdp.append(random.choice(lettres)) or mdp.append(random.choice(chiffres)) or mdp.append(random.choice(c_speciaux))
+        mdp.append(random.choice(lettres)) or mdp.append(random.choice(chiffres)) or mdp.append(random.choice(c_speciaux))
+        random.shuffle(mdp)
+    for i in range(1, len(mdp)):
+        mdp1 += mdp[i]
+    mdpf = mdp1
+    return mdpf
+
+nb = 1
+# loop pour un mdp
+while True:
+    mdpfinal = choixmdp(mdp1)
+    choixmdp(mdp1)
+    if nb == 1:
+        print("""Votre {0}er mot de passe généré est: 
+{1:-^30}
+{2}
+{3:-^30}
+""".format(nb, "", mdpfinal, ""))
+    else:
+        print("{0:->72}".format(""))
+        print("""\nVotre {0}e mot de passe généré est: 
+{1:-^30}
+{2}
+{3:-^30}
+""".format(nb, "", mdpfinal, ""))
+    nb = nb + 1
+    print("""\n*Soyez sur de le copier/coller 
+quelque part pour ne pas le perdre""")
+
+    while True:
+        while True:
+            try:
+                demandeautre_mdp = input("\nVoulez-vous un autre mot de passe?: ")
+                break
+            except ValueError:
+                print("Entrer uniquement 'oui' ou 'non' .")
+                continue
+
+        if demandeautre_mdp in ("oui", "Oui", "OUI", "non", "Non", "NON"):
+            break
+        else:
+            print("Entrer uniquement 'oui' ou 'non' .")
+            continue
+
+    if demandeautre_mdp in ("oui", "Oui", "OUI"):
+        mdp.clear()
+        continue
+    elif demandeautre_mdp in ("non", "Non", "NON"):
+        break
+    else:
+        print("ERREUR!")
